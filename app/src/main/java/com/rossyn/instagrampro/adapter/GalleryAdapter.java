@@ -138,7 +138,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     public void setAlbumDataList(List<AlbumData> albumDataList) {
         this.albumDataList = albumDataList;
-        Log.d("TestLogRemove", "setAlbumDataList: " + albumDataList.size());
     }
 
     public void setPositionTab(int value) {

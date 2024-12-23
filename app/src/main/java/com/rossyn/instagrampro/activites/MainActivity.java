@@ -50,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // add these two lines in Application Class to register Download Service.
         PRDownloaderConfig config = PRDownloaderConfig.newBuilder().setDatabaseEnabled(true).build();
-
         PRDownloader.initialize(this, config);
+
+
         downloadManager = new DownloadManager(this);
 
         albumDataViewModel = new ViewModelProvider.AndroidViewModelFactory(this.getApplication()).create(AlbumDataViewModel.class);
@@ -66,11 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 int randomIndex = random.nextInt(albumDataList.size());
                 AlbumData randomAlbum = albumDataList.get(randomIndex);
 
-//                randomAlbum.setDate(System.currentTimeMillis());
-//                albumDataViewModel.insert(randomAlbum);
-
                 String url = randomAlbum.getPath();
-                String downloadDir =Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS) + "/insta_pro";
+
+                // modify your download path.
+                String downloadDir = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS) + "/insta_pro";
 
 
                 AlbumData albumData = new AlbumData();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                 long downloadId = downloadManager.startDownload(this, url, downloadDir, albumData);
 
+                // use your download id if you want.
             }
 
         });

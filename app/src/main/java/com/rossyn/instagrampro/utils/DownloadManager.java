@@ -48,7 +48,6 @@ public class DownloadManager {
     public long startDownload(Context context, String url, String downloadPath, AlbumData albumData) {
 
         if (context == null || TextUtils.isEmpty(url) || TextUtils.isEmpty(downloadPath)) {
-            Log.e("DownloadHelper", "Invalid download parameters");
             return -1;
         }
 
@@ -67,18 +66,13 @@ public class DownloadManager {
 
 
         long downloadId = PRDownloader.download(url, downloadPath, fileName).build().setOnStartOrResumeListener(() -> {
-            Log.d("DownloadHelper", "Download started/resumed: " + fileName);
+
 
             Toast.makeText(context, "Download Started", Toast.LENGTH_SHORT).show();
         }).setOnPauseListener(() -> {
             Toast.makeText(context, "Download Paused", Toast.LENGTH_SHORT).show();
-
-            Log.d("DownloadHelper", "Download paused: " + fileName);
-
         }).setOnCancelListener(() -> {
             Toast.makeText(context, "Download Cancelled", Toast.LENGTH_SHORT).show();
-
-            Log.d("DownloadHelper", "Download cancelled: " + fileName);
 
             Map<AlbumData, Integer> updatedDownloads = new HashMap<>(activeDownloads.getValue());
             updatedDownloads.remove(albumData);
@@ -123,10 +117,8 @@ public class DownloadManager {
         if (downloadId != -1) {
             try {
                 PRDownloader.pause(downloadId);
-                Log.d("DownloadHelper", "Download paused: " + downloadId);
                 return true;
             } catch (Exception e) {
-                Log.e("DownloadHelper", "Error pausing download", e);
                 return false;
             }
         }
@@ -137,10 +129,8 @@ public class DownloadManager {
         if (downloadId != -1) {
             try {
                 PRDownloader.resume(downloadId);
-                Log.d("DownloadHelper", "Download resumed: " + downloadId);
                 return true;
             } catch (Exception e) {
-                Log.e("DownloadHelper", "Error resuming download", e);
                 return false;
             }
         }
@@ -151,10 +141,8 @@ public class DownloadManager {
         if (downloadId != -1) {
             try {
                 PRDownloader.cancel(downloadId);
-                Log.d("DownloadHelper", "Download cancelled: " + downloadId);
                 return true;
             } catch (Exception e) {
-                Log.e("DownloadHelper", "Error cancelling download", e);
                 return false;
             }
         }

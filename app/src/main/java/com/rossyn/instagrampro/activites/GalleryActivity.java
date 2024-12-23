@@ -77,7 +77,6 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@NonNull TabLayout.Tab tab) {
                 tabPosition.postValue(tab.getPosition());
-                Log.d("onTabSelected", "onTabSelected: " + currentPositionTab);
             }
 
             @Override
@@ -212,10 +211,6 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         tabPosition.postValue(currentPositionTab);
-
-        Log.d("TestLogRemove", "photos: " + photos.size());
-        Log.d("TestLogRemove", "videos: " + videos.size());
-        Log.d("TestLogRemove", "audios: " + audios.size());
     }
 
 
